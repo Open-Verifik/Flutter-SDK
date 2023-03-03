@@ -1,8 +1,8 @@
 import 'biometrics_flutter_sdk_platform_interface.dart';
 
 class BiometricsFlutterSdk {
-  Future<String?> getPlatformVersion() async {
-    return await BiometricsFlutterSdkPlatform.instance.getPlatformVersion();
+  Future<String?> init() async {
+    return await BiometricsFlutterSdkPlatform.instance.init();
   }
 
   Future<String?> enroll(

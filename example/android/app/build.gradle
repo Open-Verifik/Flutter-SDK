@@ -58,6 +58,12 @@ android {
     }
 }
 
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation files(project(':').file('libs/facetec-sdk-9.6.16.aar'))
+
+}
+
 flutter {
     source '../..'
 }

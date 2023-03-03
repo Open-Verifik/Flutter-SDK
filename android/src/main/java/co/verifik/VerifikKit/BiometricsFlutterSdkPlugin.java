@@ -1,6 +1,6 @@
 package co.verifik.VerifikKit;
 
-import java.util.UUID;
+import java.util.Map;
 
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -29,7 +29,6 @@ public class BiometricsFlutterSdkPlugin implements FlutterPlugin, MethodCallHand
   private Activity activity;
   private Verifik verifik;
   private Boolean initVerifik = false;
-  private String refId = "VerifikSample" + UUID.randomUUID().toString();
   private String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJZCI6IjYxNTc3MTU2OTBmMDEwOGNmMmRjNjI4MSIsImRvY3VtZW50VHlwZSI6IkNDIiwiZG9jdW1lbnROdW1iZXIiOiIxNjM1MzczMzY3NDY3NDMiLCJ2IjoxLCJyb2xlIjoiY2xpZW50IiwiZXhwaXJlc0F0IjoiMjAyMi0xMi0wNCAxOTozNjo1NSIsImlhdCI6MTY2NzU5MDYxNX0.QvyQyTXoQCzXlGGfBs2brK15_9AvoveFWTAgprHvRDc";
 
   @Override
@@ -40,18 +39,23 @@ public class BiometricsFlutterSdkPlugin implements FlutterPlugin, MethodCallHand
 
   @Override
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
-    if (call.method.equals("getPlatformVersion")) {
-      result.success("Android " + android.os.Build.VERSION.RELEASE);
+    if (call.method.equals("init")) {
     } else if (call.method.equals("enroll")) {
       if (initVerifik) {
+        Map<String, Object> data = call.arguments();
+        String refId = (String) data.get("refId");
         verifik.enroll(refId);
       }
     } else if (call.method.equals("authenticate")) {
       if (initVerifik) {
+        Map<String, Object> data = call.arguments();
+        String refId = (String) data.get("refId");
         verifik.authenticate(refId);
       }
     } else if (call.method.equals("matchIDScan")) {
       if (initVerifik) {
+        Map<String, Object> data = call.arguments();
+        String refId = (String) data.get("refId");
         verifik.matchIDScan(refId);
       }
     } else if (call.method.equals("photoIDScan")) {

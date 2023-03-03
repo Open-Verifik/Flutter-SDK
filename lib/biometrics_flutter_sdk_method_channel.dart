@@ -10,9 +10,9 @@ class MethodChannelBiometricsFlutterSdk extends BiometricsFlutterSdkPlatform {
   );
 
   @override
-  Future<String?> getPlatformVersion() async {
+  Future<String?> init() async {
     return await methodChannel.invokeMethod<String>(
-      'getPlatformVersion',
+      'init',
     );
   }
 
@@ -22,6 +22,7 @@ class MethodChannelBiometricsFlutterSdk extends BiometricsFlutterSdkPlatform {
   ) async {
     return await methodChannel.invokeMethod<String>(
       'enroll',
+      {'refId': refId},
     );
   }
 
@@ -31,6 +32,7 @@ class MethodChannelBiometricsFlutterSdk extends BiometricsFlutterSdkPlatform {
   ) async {
     return await methodChannel.invokeMethod<String>(
       'authenticate',
+      {'refId': refId},
     );
   }
 
@@ -40,6 +42,7 @@ class MethodChannelBiometricsFlutterSdk extends BiometricsFlutterSdkPlatform {
   ) async {
     return await methodChannel.invokeMethod<String>(
       'matchIDScan',
+      {'refId': refId},
     );
   }
 
