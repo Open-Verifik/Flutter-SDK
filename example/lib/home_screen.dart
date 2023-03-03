@@ -34,14 +34,14 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // ElevatedButton(
-            //   onPressed: () async {
-            //     print(await _biometricsFlutterSdkPlugin.getPlatformVersion());
-            //   },
-            //   child: const Text(
-            //     'Get version',
-            //   ),
-            // ),
+            ElevatedButton(
+              onPressed: () async {
+                print(await _biometricsFlutterSdkPlugin.init());
+              },
+              child: const Text(
+                'Init',
+              ),
+            ),
             ElevatedButton(
               onPressed: () async {
                 print(await _biometricsFlutterSdkPlugin.enroll('xxx'));

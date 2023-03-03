@@ -25,9 +25,9 @@ abstract class BiometricsFlutterSdkPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<String?> getPlatformVersion() {
+  Future<String?> init() {
     throw UnimplementedError(
-      'platformVersion() has not been implemented.',
+      'init() has not been implemented.',
     );
   }
 
