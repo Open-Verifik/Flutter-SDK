@@ -1,39 +1,75 @@
 import 'biometrics_flutter_sdk_platform_interface.dart';
+import 'biometrics_flutter_sdk_response.dart';
 
 class BiometricsFlutterSdk {
-  Future<String?> init() async {
-    return await BiometricsFlutterSdkPlatform.instance.init();
-  }
-
-  Future<String?> enroll(
-    String refId,
-  ) async {
-    return await BiometricsFlutterSdkPlatform.instance.enroll(
-      refId,
+  Future<BiometricsResponse> init() async {
+    return _checkResponse(
+      await BiometricsFlutterSdkPlatform.instance.init(),
     );
   }
 
-  Future<String?> authenticate(
+  Future<BiometricsResponse> enroll(
     String refId,
   ) async {
-    return await BiometricsFlutterSdkPlatform.instance.authenticate(
-      refId,
+    return _checkResponse(
+      await BiometricsFlutterSdkPlatform.instance.enroll(
+        refId,
+      ),
     );
   }
 
-  Future<String?> matchIDScan(
+  Future<BiometricsResponse> authenticate(
     String refId,
   ) async {
-    return await BiometricsFlutterSdkPlatform.instance.matchIDScan(
-      refId,
+    return _checkResponse(
+      await BiometricsFlutterSdkPlatform.instance.authenticate(
+        refId,
+      ),
     );
   }
 
-  Future<String?> photoIDScan() async {
-    return await BiometricsFlutterSdkPlatform.instance.photoIDScan();
+  Future<BiometricsResponse> matchIDScan(
+    String refId,
+  ) async {
+    return _checkResponse(
+      await BiometricsFlutterSdkPlatform.instance.matchIDScan(
+        refId,
+      ),
+    );
   }
 
-  Future<String?> appLoginKYC() async {
-    return await BiometricsFlutterSdkPlatform.instance.appLoginKYC();
+  Future<BiometricsResponse> photoIDScan() async {
+    return _checkResponse(
+      await BiometricsFlutterSdkPlatform.instance.photoIDScan(),
+    );
+  }
+
+  Future<BiometricsResponse> appLoginKYC() async {
+    return _checkResponse(
+      await BiometricsFlutterSdkPlatform.instance.appLoginKYC(),
+    );
+  }
+
+  BiometricsResponse _checkResponse(String? response) {
+    print('sdk = $response');
+    switch (response) {
+      case 'User cancel enrollment or there was a connection error':
+      case 'User cancel authentication or there was a connection error':
+      case 'User cancel ID Scan or there was a connection error - ID Step':
+        return BiometricsResponse(
+          type: BiometricsResponseType.cancelled,
+          message: response!,
+        );
+      case 'There was an error parsing enrollment resulting data, please contact Verifik Support Team':
+        return BiometricsResponse(
+          type: BiometricsResponseType.error,
+          message: response!,
+        );
+      default:
+        return BiometricsResponse(
+          type: BiometricsResponseType.unknown,
+          message: 'BiometricsResponse unknown: $response',
+        );
+    }
   }
 }

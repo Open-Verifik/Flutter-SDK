@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:biometrics_flutter_sdk/biometrics_flutter_sdk.dart';
+import 'package:biometrics_flutter_sdk/biometrics_flutter_sdk_response.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -36,7 +37,9 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             ElevatedButton(
               onPressed: () async {
-                print(await _biometricsFlutterSdkPlugin.init());
+                _displayMessage(
+                  await _biometricsFlutterSdkPlugin.init(),
+                );
               },
               child: const Text(
                 'Init',
@@ -44,7 +47,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ElevatedButton(
               onPressed: () async {
-                print(await _biometricsFlutterSdkPlugin.enroll('xxx'));
+                _displayMessage(
+                  await _biometricsFlutterSdkPlugin.enroll('xxx'),
+                );
               },
               child: const Text(
                 'Enroll',
@@ -52,7 +57,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ElevatedButton(
               onPressed: () async {
-                print(await _biometricsFlutterSdkPlugin.authenticate('xxx'));
+                _displayMessage(
+                  await _biometricsFlutterSdkPlugin.authenticate('xxx'),
+                );
               },
               child: const Text(
                 'Authenticate',
@@ -60,7 +67,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ElevatedButton(
               onPressed: () async {
-                print(await _biometricsFlutterSdkPlugin.matchIDScan('xxx'));
+                _displayMessage(
+                  await _biometricsFlutterSdkPlugin.matchIDScan('xxx'),
+                );
               },
               child: const Text(
                 'MatchIDScan',
@@ -68,7 +77,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ElevatedButton(
               onPressed: () async {
-                print(await _biometricsFlutterSdkPlugin.photoIDScan());
+                _displayMessage(
+                  await _biometricsFlutterSdkPlugin.photoIDScan(),
+                );
               },
               child: const Text(
                 'photoIDScan',
@@ -76,7 +87,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ElevatedButton(
               onPressed: () async {
-                print(await _biometricsFlutterSdkPlugin.appLoginKYC());
+                _displayMessage(
+                  await _biometricsFlutterSdkPlugin.appLoginKYC(),
+                );
               },
               child: const Text(
                 'AppLoginKYC',
@@ -84,6 +97,22 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  _displayMessage(BiometricsResponse biometricsResponse) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(biometricsResponse.message),
+        backgroundColor: biometricsResponse.type ==
+                BiometricsResponseType.success
+            ? Colors.green
+            : biometricsResponse.type == BiometricsResponseType.error
+                ? Colors.red
+                : biometricsResponse.type == BiometricsResponseType.cancelled
+                    ? Colors.yellow
+                    : Colors.black,
       ),
     );
   }

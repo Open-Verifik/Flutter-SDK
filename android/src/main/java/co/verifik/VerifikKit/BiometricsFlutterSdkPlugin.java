@@ -30,6 +30,7 @@ public class BiometricsFlutterSdkPlugin implements FlutterPlugin, MethodCallHand
   private Verifik verifik;
   private Boolean initVerifik = false;
   private String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJZCI6IjYxNTc3MTU2OTBmMDEwOGNmMmRjNjI4MSIsImRvY3VtZW50VHlwZSI6IkNDIiwiZG9jdW1lbnROdW1iZXIiOiIxNjM1MzczMzY3NDY3NDMiLCJ2IjoxLCJyb2xlIjoiY2xpZW50IiwiZXhwaXJlc0F0IjoiMjAyMi0xMi0wNCAxOTozNjo1NSIsImlhdCI6MTY2NzU5MDYxNX0.QvyQyTXoQCzXlGGfBs2brK15_9AvoveFWTAgprHvRDc";
+  private Result globalResult;
 
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
@@ -40,30 +41,37 @@ public class BiometricsFlutterSdkPlugin implements FlutterPlugin, MethodCallHand
   @Override
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
     if (call.method.equals("init")) {
+      result.success(initVerifik);
+      result = result;
     } else if (call.method.equals("enroll")) {
       if (initVerifik) {
-        Map<String, Object> data = call.arguments();
-        String refId = (String) data.get("refId");
-        verifik.enroll(refId);
+        // Map<String, Object> data = call.arguments();
+        // String refId = (String) data.get("refId");
+        globalResult = result;
+        verifik.enroll("refId");
       }
     } else if (call.method.equals("authenticate")) {
       if (initVerifik) {
-        Map<String, Object> data = call.arguments();
-        String refId = (String) data.get("refId");
-        verifik.authenticate(refId);
+        // Map<String, Object> data = call.arguments();
+        // String refId = (String) data.get("refId");
+        globalResult = result;
+        verifik.authenticate("refId");
       }
     } else if (call.method.equals("matchIDScan")) {
       if (initVerifik) {
         Map<String, Object> data = call.arguments();
         String refId = (String) data.get("refId");
+        globalResult = result;
         verifik.matchIDScan(refId);
       }
     } else if (call.method.equals("photoIDScan")) {
       if (initVerifik) {
+        globalResult = result;
         verifik.photoIDScan();
       }
     } else if (call.method.equals("appLoginKYC")) {
       if (initVerifik) {
+        globalResult = result;
         verifik.appLoginKYC("63c5620874ed501af5f983b1", "", "5514968760");
       }
     } else {
@@ -103,49 +111,85 @@ public class BiometricsFlutterSdkPlugin implements FlutterPlugin, MethodCallHand
 
   @Override
   public void appRegisterSuccessful(String token) {
+    if(globalResult != null){
+      globalResult.success(token);
+    }
   }
 
   @Override
   public void appLoginSuccessful(String token) {
+    if(globalResult != null){
+      globalResult.success(token);
+    }
   }
 
   @Override
   public void configError(String error) {
+    if(globalResult != null){
+      globalResult.success(error);
+    }
   }
 
   @Override
   public void sessionError(String error) {
+    if(globalResult != null){
+      globalResult.success(error);
+    }
   }
 
   @Override
   public void enrollmentError(String error) {
+    if(globalResult != null){
+      globalResult.success(error);
+    }
   }
 
   @Override
   public void authError(String error) {
+    if(globalResult != null){
+      globalResult.success(error);
+    }
   }
 
   @Override
   public void photoIDMatchError(String error) {
+    if(globalResult != null){
+      globalResult.success(error);
+    }
   }
 
   @Override
   public void photoIDScanError(String error) {
+    if(globalResult != null){
+      globalResult.success(error);
+    }
   }
 
   @Override
   public void appRegisterError(String error) {
+    if(globalResult != null){
+      globalResult.success(error);
+    }
   }
 
   @Override
   public void appLoginError(String error) {
+    if(globalResult != null){
+      globalResult.success(error);
+    }
   }
 
   @Override
   public void appPhotoIDScanError(String error) {
+    if(globalResult != null){
+      globalResult.success(error);
+    }
   }
 
   @Override
   public void appPhotoIDScanSuccessful(String error) {
+    if(globalResult != null){
+      globalResult.success(error);
+    }
   }
 }

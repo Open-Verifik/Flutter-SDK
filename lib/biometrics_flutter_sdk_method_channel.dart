@@ -11,7 +11,7 @@ class MethodChannelBiometricsFlutterSdk extends BiometricsFlutterSdkPlatform {
 
   @override
   Future<String?> init() async {
-    return await methodChannel.invokeMethod<String>(
+    return await methodChannel.invokeMethod<String?>(
       'init',
     );
   }
@@ -20,9 +20,9 @@ class MethodChannelBiometricsFlutterSdk extends BiometricsFlutterSdkPlatform {
   Future<String?> enroll(
     String refId,
   ) async {
-    return await methodChannel.invokeMethod<String>(
+    return await methodChannel.invokeMethod<String?>(
       'enroll',
-      {'refId': refId},
+      {"refId": refId},
     );
   }
 
@@ -30,7 +30,7 @@ class MethodChannelBiometricsFlutterSdk extends BiometricsFlutterSdkPlatform {
   Future<String?> authenticate(
     String refId,
   ) async {
-    return await methodChannel.invokeMethod<String>(
+    return await methodChannel.invokeMethod<String?>(
       'authenticate',
       {'refId': refId},
     );
@@ -40,7 +40,7 @@ class MethodChannelBiometricsFlutterSdk extends BiometricsFlutterSdkPlatform {
   Future<String?> matchIDScan(
     String refId,
   ) async {
-    return await methodChannel.invokeMethod<String>(
+    return await methodChannel.invokeMethod<String?>(
       'matchIDScan',
       {'refId': refId},
     );
@@ -48,14 +48,14 @@ class MethodChannelBiometricsFlutterSdk extends BiometricsFlutterSdkPlatform {
 
   @override
   Future<String?> photoIDScan() async {
-    return await methodChannel.invokeMethod<String>(
+    return await methodChannel.invokeMethod<String?>(
       'photoIDScan',
     );
   }
 
   @override
   Future<String?> appLoginKYC() async {
-    return await methodChannel.invokeMethod<String>(
+    return await methodChannel.invokeMethod<String?>(
       'appLoginKYC',
     );
   }
