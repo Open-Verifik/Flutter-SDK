@@ -2,18 +2,19 @@ import Flutter
 import UIKit
 import VerifikKit
 
-public class BiometricsFlutterSdkPlugin: UIViewController, FlutterPlugin {
+public class BiometricsFlutterSdkPlugin: FlutterViewController, FlutterPlugin, VerifikProtocol {
     var verifik: Verifik?
     var initVerifik = false
-    let refId = "verifik_app_" + UUID().uuidString
+
+    // override func viewDidAppear(_ animated:Bool) {
+    //     super.viewDidAppear(animated)
+    //     verifik = Verifik(vc: self, token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJZCI6IjYxNTc3MTU2OTBmMDEwOGNmMmRjNjI4MSIsImRvY3VtZW50VHlwZSI6IkNDIiwiZG9jdW1lbnROdW1iZXIiOiIxNjM1MzczMzY3NDY3NDMiLCJ2IjoxLCJyb2xlIjoiY2xpZW50IiwiZXhwaXJlc0F0IjoiMjAyMi0xMi0wNCAxOTozNjo1NSIsImlhdCI6MTY2NzU5MDYxNX0.QvyQyTXoQCzXlGGfBs2brK15_9AvoveFWTAgprHvRDc")
+    // }
 
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "biometrics_flutter_sdk", binaryMessenger: registrar.messenger())
         let instance = BiometricsFlutterSdkPlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)
-
-        // let flutterViewController = FlutterViewController(nibName: nil, bundle: nil)
-        // FlutterWindow.sharedInstance().run(with: flutterViewController)
     }
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
@@ -21,43 +22,39 @@ public class BiometricsFlutterSdkPlugin: UIViewController, FlutterPlugin {
             case "init":
                 if !initVerifik{
                     verifik = Verifik(vc: self, token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJZCI6IjYxNTc3MTU2OTBmMDEwOGNmMmRjNjI4MSIsImRvY3VtZW50VHlwZSI6IkNDIiwiZG9jdW1lbnROdW1iZXIiOiIxNjM1MzczMzY3NDY3NDMiLCJ2IjoxLCJyb2xlIjoiY2xpZW50IiwiZXhwaXJlc0F0IjoiMjAyMi0xMi0wNCAxOTozNjo1NSIsImlhdCI6MTY2NzU5MDYxNX0.QvyQyTXoQCzXlGGfBs2brK15_9AvoveFWTAgprHvRDc")
+                    result("Init")
                 }
-                result("init")
             case "enroll":
                 if initVerifik{
-                    verifik?.enroll(externalDataBaseRefID: refId)
+                    verifik?.enroll(externalDataBaseRefID: "refId")
+                    result("xxx")
                 }
                 result("enroll")
             case "authenticate":
                 if initVerifik{
-                    verifik?.authenticate(externalDataBaseRefID: refId)
+                    verifik?.authenticate(externalDataBaseRefID: "refId")
+                    result("xxx")
                 }
-                result("authenticate")
-
             case "matchIDScan":
                 if initVerifik{
                     verifik?.matchIDScan()
+                    result("xxx")
                 }
-                result("matchIDScan")
-
             case "photoIDScan":
                 if initVerifik{
                     verifik?.photoIDScan()
+                    result("xxx")
                 }
-                result("photoIDScan")
-
             case "appLoginKYC":
                 if initVerifik{
                     verifik?.appRegistrationKYC(project: "63c5620874ed501af5f983b1", email: nil, phone: "")
+                    result("xxx")
                 }
-                result("appLoginKYC")
             default:
                 result("not found")
         }
     }
-}
 
-extension BiometricsFlutterSdkPlugin: VerifikProtocol {
     public func initializationSuccesful() {
         initVerifik = true
         print("Se inició correctamente el sdk de Verifik")
@@ -114,11 +111,6 @@ extension BiometricsFlutterSdkPlugin: VerifikProtocol {
     }
 
     public func onAppRegisterDone(done: Bool, resultToken: String?) {
-        if done{
-            let alert = UIAlertController(title: "Login exitoso", message: resultToken, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            self.show(alert, sender: nil)
-        }
     }
 
     public func appRegisterError(error: String) {
