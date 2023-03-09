@@ -53,6 +53,11 @@ class BiometricsFlutterSdk {
   BiometricsResponse _checkResponse(String? response) {
     print('sdk = $response');
     switch (response) {
+      case 'Init':
+        return BiometricsResponse(
+          type: BiometricsResponseType.initial,
+          message: 'VerifikKit Flutter SDK Inicializado',
+        );
       case 'User cancel enrollment or there was a connection error':
       case 'User cancel authentication or there was a connection error':
       case 'User cancel ID Scan or there was a connection error - ID Step':

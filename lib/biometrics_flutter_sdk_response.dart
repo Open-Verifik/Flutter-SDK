@@ -1,4 +1,5 @@
 enum BiometricsResponseType {
+  initial,
   success,
   error,
   cancelled,

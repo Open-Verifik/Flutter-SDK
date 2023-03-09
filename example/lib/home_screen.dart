@@ -104,9 +104,12 @@ class _HomeScreenState extends State<HomeScreen> {
   _displayMessage(BiometricsResponse biometricsResponse) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(biometricsResponse.message),
+        content: Text(
+          biometricsResponse.message,
+        ),
         backgroundColor: biometricsResponse.type ==
-                BiometricsResponseType.success
+                    BiometricsResponseType.initial ||
+                biometricsResponse.type == BiometricsResponseType.success
             ? Colors.green
             : biometricsResponse.type == BiometricsResponseType.error
                 ? Colors.red

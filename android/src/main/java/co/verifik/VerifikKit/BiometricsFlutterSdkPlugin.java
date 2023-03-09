@@ -41,26 +41,22 @@ public class BiometricsFlutterSdkPlugin implements FlutterPlugin, MethodCallHand
   @Override
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
     if (call.method.equals("init")) {
-      result.success(initVerifik);
-      result = result;
+      result.success("Init");
     } else if (call.method.equals("enroll")) {
       if (initVerifik) {
-        // Map<String, Object> data = call.arguments();
-        // String refId = (String) data.get("refId");
+        String refId = call.argument("refId");
         globalResult = result;
-        verifik.enroll("refId");
+        verifik.enroll(refId);
       }
     } else if (call.method.equals("authenticate")) {
       if (initVerifik) {
-        // Map<String, Object> data = call.arguments();
-        // String refId = (String) data.get("refId");
+        String refId = call.argument("refId");
         globalResult = result;
-        verifik.authenticate("refId");
+        verifik.authenticate(refId);
       }
     } else if (call.method.equals("matchIDScan")) {
       if (initVerifik) {
-        Map<String, Object> data = call.arguments();
-        String refId = (String) data.get("refId");
+        String refId = call.argument("refId");
         globalResult = result;
         verifik.matchIDScan(refId);
       }
