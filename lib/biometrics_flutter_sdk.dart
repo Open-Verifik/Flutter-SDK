@@ -88,7 +88,10 @@ class BiometricsFlutterSdk {
         );
       case 'User cancel enrollment or there was a connection error':
       case 'User cancel authentication or there was a connection error':
+      case 'User cancel Photo ID Scan or there was a connection error':
       case 'User cancel ID Scan or there was a connection error - ID Step':
+      case 'User cancel App Register or there was a connection error':
+      case 'User cancel App Login or there was a connection error':
         return BiometricsResponse(
           type: BiometricsResponseType.cancelled,
           message: response!,

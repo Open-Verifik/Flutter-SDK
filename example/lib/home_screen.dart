@@ -138,6 +138,11 @@ class _HomeScreenState extends State<HomeScreen> {
       SnackBar(
         content: Text(
           biometricsResponse.message,
+          style: TextStyle(
+            color: biometricsResponse.type == BiometricsResponseType.cancelled
+                ? Colors.black
+                : Colors.white,
+          ),
         ),
         backgroundColor: biometricsResponse.type ==
                     BiometricsResponseType.initial ||

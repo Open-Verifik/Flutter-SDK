@@ -40,24 +40,28 @@ public class BiometricsFlutterSdkPlugin implements FlutterPlugin, MethodCallHand
 
   @Override
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
-    if (call.method.equals("init")) {
-      result.success("Init");
+    if (call.method.equals("liveness")) {
+      // todo: implement this function in android sdk
+      // if (initVerifik) {
+      //   globalResult = result;
+      //   verifik.liveness();
+      // }
     } else if (call.method.equals("enroll")) {
       if (initVerifik) {
-        String refId = call.argument("refId");
         globalResult = result;
+        String refId = call.argument("refId");
         verifik.enroll(refId);
       }
     } else if (call.method.equals("authenticate")) {
       if (initVerifik) {
-        String refId = call.argument("refId");
         globalResult = result;
+        String refId = call.argument("refId");
         verifik.authenticate(refId);
       }
     } else if (call.method.equals("matchIDScan")) {
       if (initVerifik) {
-        String refId = call.argument("refId");
         globalResult = result;
+        String refId = call.argument("refId");
         verifik.matchIDScan(refId);
       }
     } else if (call.method.equals("photoIDScan")) {
@@ -65,10 +69,17 @@ public class BiometricsFlutterSdkPlugin implements FlutterPlugin, MethodCallHand
         globalResult = result;
         verifik.photoIDScan();
       }
+    } else if (call.method.equals("appRegistrationKYC")) {
+      if (initVerifik) {
+        globalResult = result;
+        String phone = call.argument("phone");
+        verifik.appRegistrationKYC("63c5620874ed501af5f983b1", "", phone);
+      }
     } else if (call.method.equals("appLoginKYC")) {
       if (initVerifik) {
         globalResult = result;
-        verifik.appLoginKYC("63c5620874ed501af5f983b1", "", "5514968760");
+        String phone = call.argument("phone");
+        verifik.appLoginKYC("63c5620874ed501af5f983b1", "", phone);
       }
     } else {
       result.notImplemented();
