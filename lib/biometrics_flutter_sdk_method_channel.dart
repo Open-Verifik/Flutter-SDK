@@ -10,16 +10,16 @@ class MethodChannelBiometricsFlutterSdk extends BiometricsFlutterSdkPlatform {
   );
 
   @override
-  Future<String?> init() async {
+  Future<String?> liveness() async {
     return await methodChannel.invokeMethod<String?>(
-      'init',
+      'liveness',
     );
   }
 
   @override
-  Future<String?> enroll(
-    String refId,
-  ) async {
+  Future<String?> enroll({
+    required String refId,
+  }) async {
     return await methodChannel.invokeMethod<String?>(
       'enroll',
       {"refId": refId},
@@ -27,9 +27,9 @@ class MethodChannelBiometricsFlutterSdk extends BiometricsFlutterSdkPlatform {
   }
 
   @override
-  Future<String?> authenticate(
-    String refId,
-  ) async {
+  Future<String?> authenticate({
+    required String refId,
+  }) async {
     return await methodChannel.invokeMethod<String?>(
       'authenticate',
       {'refId': refId},
@@ -37,9 +37,9 @@ class MethodChannelBiometricsFlutterSdk extends BiometricsFlutterSdkPlatform {
   }
 
   @override
-  Future<String?> matchIDScan(
-    String refId,
-  ) async {
+  Future<String?> matchIDScan({
+    required String refId,
+  }) async {
     return await methodChannel.invokeMethod<String?>(
       'matchIDScan',
       {'refId': refId},
@@ -54,9 +54,32 @@ class MethodChannelBiometricsFlutterSdk extends BiometricsFlutterSdkPlatform {
   }
 
   @override
-  Future<String?> appLoginKYC() async {
+  Future<String?> appRegistrationKYC({
+    required String phone,
+  }) async {
+    return await methodChannel.invokeMethod<String?>(
+      'appRegistrationKYC',
+      {'phone': phone},
+    );
+  }
+
+  @override
+  Future<String?> appLoginKYC({
+    required String phone,
+  }) async {
     return await methodChannel.invokeMethod<String?>(
       'appLoginKYC',
+      {'phone': phone},
+    );
+  }
+
+  @override
+  Future<String?> appPhotoIDScanKYC({
+    required String documentType,
+  }) async {
+    return await methodChannel.invokeMethod<String?>(
+      'appPhotoIDScanKYC',
+      {'documentType': documentType},
     );
   }
 }

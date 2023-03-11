@@ -1,39 +1,41 @@
+import 'package:flutter/foundation.dart';
+
 import 'biometrics_flutter_sdk_platform_interface.dart';
 import 'biometrics_flutter_sdk_response.dart';
 
 class BiometricsFlutterSdk {
-  Future<BiometricsResponse> init() async {
+  Future<BiometricsResponse> liveness() async {
     return _checkResponse(
-      await BiometricsFlutterSdkPlatform.instance.init(),
+      await BiometricsFlutterSdkPlatform.instance.liveness(),
     );
   }
 
-  Future<BiometricsResponse> enroll(
-    String refId,
-  ) async {
+  Future<BiometricsResponse> enroll({
+    required String refId,
+  }) async {
     return _checkResponse(
       await BiometricsFlutterSdkPlatform.instance.enroll(
-        refId,
+        refId: refId,
       ),
     );
   }
 
-  Future<BiometricsResponse> authenticate(
-    String refId,
-  ) async {
+  Future<BiometricsResponse> authenticate({
+    required String refId,
+  }) async {
     return _checkResponse(
       await BiometricsFlutterSdkPlatform.instance.authenticate(
-        refId,
+        refId: refId,
       ),
     );
   }
 
-  Future<BiometricsResponse> matchIDScan(
-    String refId,
-  ) async {
+  Future<BiometricsResponse> matchIDScan({
+    required String refId,
+  }) async {
     return _checkResponse(
       await BiometricsFlutterSdkPlatform.instance.matchIDScan(
-        refId,
+        refId: refId,
       ),
     );
   }
@@ -44,14 +46,40 @@ class BiometricsFlutterSdk {
     );
   }
 
-  Future<BiometricsResponse> appLoginKYC() async {
+  Future<BiometricsResponse> appRegistrationKYC({
+    required String phone,
+  }) async {
     return _checkResponse(
-      await BiometricsFlutterSdkPlatform.instance.appLoginKYC(),
+      await BiometricsFlutterSdkPlatform.instance.appRegistrationKYC(
+        phone: phone,
+      ),
+    );
+  }
+
+  Future<BiometricsResponse> appLoginKYC({
+    required String phone,
+  }) async {
+    return _checkResponse(
+      await BiometricsFlutterSdkPlatform.instance.appLoginKYC(
+        phone: phone,
+      ),
+    );
+  }
+
+  Future<BiometricsResponse> appPhotoIDScanKYC({
+    required String documentType,
+  }) async {
+    return _checkResponse(
+      await BiometricsFlutterSdkPlatform.instance.appPhotoIDScanKYC(
+        documentType: documentType,
+      ),
     );
   }
 
   BiometricsResponse _checkResponse(String? response) {
-    print('sdk = $response');
+    if (kDebugMode) {
+      print('sdk = $response');
+    }
     switch (response) {
       case 'Init':
         return BiometricsResponse(

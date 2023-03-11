@@ -38,17 +38,19 @@ class _HomeScreenState extends State<HomeScreen> {
             ElevatedButton(
               onPressed: () async {
                 _displayMessage(
-                  await _biometricsFlutterSdkPlugin.init(),
+                  await _biometricsFlutterSdkPlugin.liveness(),
                 );
               },
               child: const Text(
-                'Init',
+                'Liveness',
               ),
             ),
             ElevatedButton(
               onPressed: () async {
                 _displayMessage(
-                  await _biometricsFlutterSdkPlugin.enroll('xxx'),
+                  await _biometricsFlutterSdkPlugin.enroll(
+                    refId: 'xxx',
+                  ),
                 );
               },
               child: const Text(
@@ -58,7 +60,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ElevatedButton(
               onPressed: () async {
                 _displayMessage(
-                  await _biometricsFlutterSdkPlugin.authenticate('xxx'),
+                  await _biometricsFlutterSdkPlugin.authenticate(
+                    refId: 'xxx',
+                  ),
                 );
               },
               child: const Text(
@@ -68,7 +72,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ElevatedButton(
               onPressed: () async {
                 _displayMessage(
-                  await _biometricsFlutterSdkPlugin.matchIDScan('xxx'),
+                  await _biometricsFlutterSdkPlugin.matchIDScan(
+                    refId: 'xxx',
+                  ),
                 );
               },
               child: const Text(
@@ -88,11 +94,37 @@ class _HomeScreenState extends State<HomeScreen> {
             ElevatedButton(
               onPressed: () async {
                 _displayMessage(
-                  await _biometricsFlutterSdkPlugin.appLoginKYC(),
+                  await _biometricsFlutterSdkPlugin.appRegistrationKYC(
+                    phone: 'xxx',
+                  ),
+                );
+              },
+              child: const Text(
+                'appRegistrationKYC',
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                _displayMessage(
+                  await _biometricsFlutterSdkPlugin.appLoginKYC(
+                    phone: 'xxx',
+                  ),
                 );
               },
               child: const Text(
                 'AppLoginKYC',
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                _displayMessage(
+                  await _biometricsFlutterSdkPlugin.appPhotoIDScanKYC(
+                    documentType: 'xxx',
+                  ),
+                );
+              },
+              child: const Text(
+                'appPhotoIDScanKYC',
               ),
             ),
           ],

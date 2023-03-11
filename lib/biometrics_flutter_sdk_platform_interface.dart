@@ -25,31 +25,31 @@ abstract class BiometricsFlutterSdkPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<String?> init() {
+  Future<String?> liveness() {
     throw UnimplementedError(
-      'init() has not been implemented.',
+      'liveness() has not been implemented.',
     );
   }
 
-  Future<String?> enroll(
-    String refId,
-  ) {
+  Future<String?> enroll({
+    required String refId,
+  }) {
     throw UnimplementedError(
       'enroll() has not been implemented.',
     );
   }
 
-  Future<String?> authenticate(
-    String refId,
-  ) {
+  Future<String?> authenticate({
+    required String refId,
+  }) {
     throw UnimplementedError(
       'authenticate() has not been implemented.',
     );
   }
 
-  Future<String?> matchIDScan(
-    String refId,
-  ) {
+  Future<String?> matchIDScan({
+    required String refId,
+  }) {
     throw UnimplementedError(
       'matchIDScan() has not been implemented.',
     );
@@ -61,9 +61,27 @@ abstract class BiometricsFlutterSdkPlatform extends PlatformInterface {
     );
   }
 
-  Future<String?> appLoginKYC() {
+  Future<String?> appRegistrationKYC({
+    required String phone,
+  }) {
+    throw UnimplementedError(
+      'appRegistrationKYC() has not been implemented.',
+    );
+  }
+
+  Future<String?> appLoginKYC({
+    required String phone,
+  }) {
     throw UnimplementedError(
       'appLoginKYC() has not been implemented.',
+    );
+  }
+
+  Future<String?> appPhotoIDScanKYC({
+    required String documentType,
+  }) {
+    throw UnimplementedError(
+      'appPhotoIDScanKYC() has not been implemented.',
     );
   }
 }
