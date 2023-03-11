@@ -133,27 +133,9 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  _displayMessage(BiometricsResponse biometricsResponse) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          biometricsResponse.message,
-          style: TextStyle(
-            color: biometricsResponse.type == BiometricsResponseType.cancelled
-                ? Colors.black
-                : Colors.white,
-          ),
-        ),
-        backgroundColor: biometricsResponse.type ==
-                    BiometricsResponseType.initial ||
-                biometricsResponse.type == BiometricsResponseType.success
-            ? Colors.green
-            : biometricsResponse.type == BiometricsResponseType.error
-                ? Colors.red
-                : biometricsResponse.type == BiometricsResponseType.cancelled
-                    ? Colors.yellow
-                    : Colors.black,
-      ),
-    );
+  void _displayMessage(
+    BiometricsResponse biometricsResponse,
+  ) {
+    if (context.mounted) biometricsResponse.displaySnackBar(context);
   }
 }
