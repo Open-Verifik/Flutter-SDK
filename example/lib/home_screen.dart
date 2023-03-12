@@ -95,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () async {
                 _displayMessage(
                   await _biometricsFlutterSdkPlugin.appRegistrationKYC(
-                    phone: 'xxx',
+                    phone: '3000000001',
                   ),
                 );
               },
@@ -107,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () async {
                 _displayMessage(
                   await _biometricsFlutterSdkPlugin.appLoginKYC(
-                    phone: 'xxx',
+                    phone: '3000000001',
                   ),
                 );
               },

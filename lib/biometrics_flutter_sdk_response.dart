@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 enum BiometricsResponseType {
@@ -17,7 +18,44 @@ class BiometricsResponse {
     required this.message,
   });
 
-  displaySnackBar(
+  factory BiometricsResponse.fromSDK(
+    String? response,
+  ) {
+    if (kDebugMode) {
+      print('sdk = $response');
+    }
+    switch (response) {
+      case 'Init':
+        return BiometricsResponse(
+          type: BiometricsResponseType.initial,
+          message: 'VerifikKit Flutter SDK Inicializado',
+        );
+      case 'User cancel enrollment or there was a connection error':
+      case 'User cancel authentication or there was a connection error':
+      case 'User cancel Photo ID Scan or there was a connection error':
+      case 'User cancel ID Scan or there was a connection error - ID Step':
+      case 'User cancel App Register or there was a connection error':
+      case 'User cancel App Login or there was a connection error':
+        return BiometricsResponse(
+          type: BiometricsResponseType.cancelled,
+          message: response!,
+        );
+      case 'User not found on Database':
+      case 'There was an error parsing app register resulting data, please contact Verifik Support Team':
+      case 'There was an error parsing enrollment resulting data, please contact Verifik Support Team':
+        return BiometricsResponse(
+          type: BiometricsResponseType.error,
+          message: response!,
+        );
+      default:
+        return BiometricsResponse(
+          type: BiometricsResponseType.unknown,
+          message: 'BiometricsResponse unknown: $response',
+        );
+    }
+  }
+
+  void displaySnackBar(
     BuildContext context,
   ) {
     ScaffoldMessenger.of(context).showSnackBar(
