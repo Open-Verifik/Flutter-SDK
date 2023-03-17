@@ -38,6 +38,19 @@ class _HomeScreenState extends State<HomeScreen> {
             ElevatedButton(
               onPressed: () async {
                 _displayMessage(
+                  await _biometricsFlutterSdkPlugin.init(
+                    token:
+                        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcHBSZWdpc3RyYXRpb25JZCI6IjY0MTIyZGQ4NjVjYjkwNzAyZjFhNDgwMiIsImV4cGlyZXNBdCI6IjIwMjMtMDMtMTYgMTQ6MDU6NTciLCJhY2Nlc3NUeXBlIjoiYXBwX3JlZ2lzdHJhdGlvbl9jcmVhdGVkIiwiZW1haWwiOiJzYW50aWFnb2dhbGVhbm9ncmFuZGV0aEBnbWFpbC5jb20iLCJwaG9uZSI6IjMwMTMwNzgyNzMiLCJpYXQiOjE2Nzg5NzM3NTd9.q-YWowBD6Xtx79Bjq8eufv1_zgIIDk7Gcnao5hcvBPw',
+                  ),
+                );
+              },
+              child: const Text(
+                'Init',
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                _displayMessage(
                   await _biometricsFlutterSdkPlugin.liveness(),
                 );
               },
@@ -119,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () async {
                 _displayMessage(
                   await _biometricsFlutterSdkPlugin.appPhotoIDScanKYC(
-                    documentType: 'xxx',
+                    documentType: 'cc',
                   ),
                 );
               },

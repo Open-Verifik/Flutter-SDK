@@ -29,7 +29,6 @@ public class BiometricsFlutterSdkPlugin implements FlutterPlugin, MethodCallHand
   private Activity activity;
   private Verifik verifik;
   private Boolean initVerifik = false;
-  private String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJZCI6IjYxNTc3MTU2OTBmMDEwOGNmMmRjNjI4MSIsImRvY3VtZW50VHlwZSI6IkNDIiwiZG9jdW1lbnROdW1iZXIiOiIxNjM1MzczMzY3NDY3NDMiLCJ2IjoxLCJyb2xlIjoiY2xpZW50IiwiZXhwaXJlc0F0IjoiMjAyMi0xMi0wNCAxOTozNjo1NSIsImlhdCI6MTY2NzU5MDYxNX0.QvyQyTXoQCzXlGGfBs2brK15_9AvoveFWTAgprHvRDc";
   private Result globalResult;
 
   @Override
@@ -40,12 +39,12 @@ public class BiometricsFlutterSdkPlugin implements FlutterPlugin, MethodCallHand
 
   @Override
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
-    if (call.method.equals("liveness")) {
-      // todo: implement this function in android sdk
-      // if (initVerifik) {
-      //   globalResult = result;
-      //   verifik.liveness();
-      // }
+    if (call.method.equals("init")) {
+      if (!initVerifik) {
+        globalResult = result;
+        String token = call.argument("token");
+        verifik = new Verifik(activity, token, this);
+      }
     } else if (call.method.equals("enroll")) {
       if (initVerifik) {
         globalResult = result;
@@ -81,6 +80,12 @@ public class BiometricsFlutterSdkPlugin implements FlutterPlugin, MethodCallHand
         String phone = call.argument("phone");
         verifik.appLoginKYC("63c5620874ed501af5f983b1", "", phone);
       }
+    } else if (call.method.equals("appPhotoIDScanKYC")) {
+      if (initVerifik) {
+        globalResult = result;
+        String documentType = call.argument("documentType");
+        verifik.appRegistrationKYC("63c5620874ed501af5f983b1", documentType);
+      }
     } else {
       result.notImplemented();
     }
@@ -95,7 +100,6 @@ public class BiometricsFlutterSdkPlugin implements FlutterPlugin, MethodCallHand
   public void onAttachedToActivity(ActivityPluginBinding binding) {
     lifecycle = FlutterLifecycleAdapter.getActivityLifecycle(binding);
     activity = binding.getActivity();
-    verifik = new Verifik(activity, token, this);
   }
 
   @Override
@@ -114,6 +118,9 @@ public class BiometricsFlutterSdkPlugin implements FlutterPlugin, MethodCallHand
   @Override
   public void initializationSuccesful() {
     initVerifik = true;
+    if(globalResult != null){
+      globalResult.success("initialized");
+    }
   }
 
   @Override

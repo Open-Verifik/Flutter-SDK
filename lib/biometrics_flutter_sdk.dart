@@ -2,6 +2,16 @@ import 'biometrics_flutter_sdk_platform_interface.dart';
 import 'biometrics_flutter_sdk_response.dart';
 
 class BiometricsFlutterSdk {
+  Future<BiometricsResponse> init({
+    required String token,
+  }) async {
+    return BiometricsResponse.fromSDK(
+      await BiometricsFlutterSdkPlatform.instance.init(
+        token: token,
+      ),
+    );
+  }
+
   Future<BiometricsResponse> liveness() async {
     return BiometricsResponse.fromSDK(
       await BiometricsFlutterSdkPlatform.instance.liveness(),

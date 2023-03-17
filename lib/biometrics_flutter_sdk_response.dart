@@ -2,7 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 enum BiometricsResponseType {
-  initial,
+  notInitialized,
+  initialized,
   success,
   error,
   cancelled,
@@ -25,9 +26,9 @@ class BiometricsResponse {
       print('sdk = $response');
     }
     switch (response) {
-      case 'Init':
+      case 'initialized':
         return BiometricsResponse(
-          type: BiometricsResponseType.initial,
+          type: BiometricsResponseType.initialized,
           message: 'VerifikKit Flutter SDK Inicializado',
         );
       case 'User cancel enrollment or there was a connection error':
@@ -68,7 +69,7 @@ class BiometricsResponse {
                 : Colors.white,
           ),
         ),
-        backgroundColor: type == BiometricsResponseType.initial ||
+        backgroundColor: type == BiometricsResponseType.initialized ||
                 type == BiometricsResponseType.success
             ? Colors.green
             : type == BiometricsResponseType.error

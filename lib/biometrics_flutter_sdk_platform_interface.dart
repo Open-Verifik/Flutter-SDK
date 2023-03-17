@@ -25,6 +25,14 @@ abstract class BiometricsFlutterSdkPlatform extends PlatformInterface {
     _instance = instance;
   }
 
+  Future<String?> init({
+    required String token,
+  }) {
+    throw UnimplementedError(
+      'init() has not been implemented.',
+    );
+  }
+
   Future<String?> liveness() {
     throw UnimplementedError(
       'liveness() has not been implemented.',

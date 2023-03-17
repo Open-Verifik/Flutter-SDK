@@ -10,6 +10,16 @@ class MethodChannelBiometricsFlutterSdk extends BiometricsFlutterSdkPlatform {
   );
 
   @override
+  Future<String?> init({
+    required String token,
+  }) async {
+    return await methodChannel.invokeMethod<String?>(
+      'init',
+      {'token': token},
+    );
+  }
+
+  @override
   Future<String?> liveness() async {
     return await methodChannel.invokeMethod<String?>(
       'liveness',
