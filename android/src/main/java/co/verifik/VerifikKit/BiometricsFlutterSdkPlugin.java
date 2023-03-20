@@ -21,6 +21,7 @@ import io.flutter.plugin.common.MethodChannel.Result;
 
 import co.mat.verifikkit.Verifik;
 import co.mat.verifikkit.VerifikCallback;
+import co.mat.verifikkit.VerifikDocType;
 
 public class BiometricsFlutterSdkPlugin implements FlutterPlugin, MethodCallHandler, ActivityAware, VerifikCallback {
   private MethodChannel channel;
@@ -84,7 +85,7 @@ public class BiometricsFlutterSdkPlugin implements FlutterPlugin, MethodCallHand
       if (initVerifik) {
         globalResult = result;
         String documentType = call.argument("documentType");
-        verifik.appRegistrationKYC("63c5620874ed501af5f983b1", documentType);
+        verifik.appPhotoIDScanKYC("63c5620874ed501af5f983b1", VerifikDocType.COLOMBIAN_GOVERMENT);
       }
     } else {
       result.notImplemented();
@@ -118,91 +119,91 @@ public class BiometricsFlutterSdkPlugin implements FlutterPlugin, MethodCallHand
   @Override
   public void initializationSuccesful() {
     initVerifik = true;
-    if(globalResult != null){
+    if (globalResult != null) {
       globalResult.success("initialized");
     }
   }
 
   @Override
   public void appRegisterSuccessful(String token) {
-    if(globalResult != null){
+    if (globalResult != null) {
       globalResult.success(token);
     }
   }
 
   @Override
   public void appLoginSuccessful(String token) {
-    if(globalResult != null){
+    if (globalResult != null) {
       globalResult.success(token);
     }
   }
 
   @Override
   public void configError(String error) {
-    if(globalResult != null){
+    if (globalResult != null) {
       globalResult.success(error);
     }
   }
 
   @Override
   public void sessionError(String error) {
-    if(globalResult != null){
+    if (globalResult != null) {
       globalResult.success(error);
     }
   }
 
   @Override
   public void enrollmentError(String error) {
-    if(globalResult != null){
+    if (globalResult != null) {
       globalResult.success(error);
     }
   }
 
   @Override
   public void authError(String error) {
-    if(globalResult != null){
+    if (globalResult != null) {
       globalResult.success(error);
     }
   }
 
   @Override
   public void photoIDMatchError(String error) {
-    if(globalResult != null){
+    if (globalResult != null) {
       globalResult.success(error);
     }
   }
 
   @Override
   public void photoIDScanError(String error) {
-    if(globalResult != null){
+    if (globalResult != null) {
       globalResult.success(error);
     }
   }
 
   @Override
   public void appRegisterError(String error) {
-    if(globalResult != null){
+    if (globalResult != null) {
       globalResult.success(error);
     }
   }
 
   @Override
   public void appLoginError(String error) {
-    if(globalResult != null){
+    if (globalResult != null) {
       globalResult.success(error);
     }
   }
 
   @Override
   public void appPhotoIDScanError(String error) {
-    if(globalResult != null){
+    if (globalResult != null) {
       globalResult.success(error);
     }
   }
 
   @Override
   public void appPhotoIDScanSuccessful(String error) {
-    if(globalResult != null){
+    if (globalResult != null) {
       globalResult.success(error);
     }
   }
