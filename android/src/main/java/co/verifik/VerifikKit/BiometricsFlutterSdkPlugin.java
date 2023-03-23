@@ -116,14 +116,6 @@ public class BiometricsFlutterSdkPlugin implements FlutterPlugin, MethodCallHand
   public void onDetachedFromActivity() {
   }
 
-  // @Override
-  // public void initVerifikSuccess() {
-  //   initVerifik = true;
-  //   if (globalResult != null) {
-  //     globalResult.success("initialized");
-  //   }
-  // }
-
   @Override
   public void initVerifikSuccess() {
     initVerifik = true;
