@@ -85,7 +85,7 @@ public class BiometricsFlutterSdkPlugin implements FlutterPlugin, MethodCallHand
       if (initVerifik) {
         globalResult = result;
         String documentType = call.argument("documentType");
-        verifik.appPhotoIDScanKYC("63c5620874ed501af5f983b1", VerifikDocType.COLOMBIAN_GOVERMENT);
+        verifik.appPhotoIDScanKYC("63c5620874ed501af5f983b1", VerifikDocType.GOVERNMENT_ID);
       }
     } else {
       result.notImplemented();
