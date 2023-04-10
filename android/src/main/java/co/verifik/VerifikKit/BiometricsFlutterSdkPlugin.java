@@ -73,19 +73,19 @@ public class BiometricsFlutterSdkPlugin implements FlutterPlugin, MethodCallHand
       if (initVerifik) {
         globalResult = result;
         String phone = call.argument("phone");
-        verifik.appRegistrationKYC("63c5620874ed501af5f983b1", "", phone);
+        verifik.appRegistrationKYC("63c6cb2ae7c92dad50b62882", "", phone);
       }
     } else if (call.method.equals("appLoginKYC")) {
       if (initVerifik) {
         globalResult = result;
         String phone = call.argument("phone");
-        verifik.appLoginKYC("63c5620874ed501af5f983b1", "", phone);
+        verifik.appLoginKYC("63c6cb2ae7c92dad50b62882", "", phone);
       }
     } else if (call.method.equals("appPhotoIDScanKYC")) {
       if (initVerifik) {
         globalResult = result;
         String documentType = call.argument("documentType");
-        verifik.appPhotoIDScanKYC("63c5620874ed501af5f983b1", VerifikDocType.GOVERNMENT_ID);
+        verifik.appPhotoIDScanKYC("63c6cb2ae7c92dad50b62882", VerifikDocType.GOVERNMENT_ID);
       }
     } else {
       result.notImplemented();
