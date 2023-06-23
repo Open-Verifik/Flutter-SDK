@@ -2,16 +2,14 @@ import Flutter
 import UIKit
 import VerifikKit
 
-public class BiometricsFlutterSdkPlugin: UIViewController, FlutterPlugin, VerifikProtocol {
+@objcMembers public class BiometricsFlutterSdkPlugin: UIViewController, FlutterPlugin, VerifikProtocol {
     var verifik: Verifik?
     var initVerifik = false
 
     public override func viewDidLoad() {
         super.viewDidLoad()
         print("xxxx")
-        // Do any additional setup after loading the view.
-        verifik = Verifik(vc: self, token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJZCI6IjYxNTc3MTU2OTBmMDEwOGNmMmRjNjI4MSIsImRvY3VtZW50VHlwZSI6IkNDIiwiZG9jdW1lbnROdW1iZXIiOiIxNjM1MzczMzY3NDY3NDMiLCJ2IjoxLCJyb2xlIjoiY2xpZW50IiwiZXhwaXJlc0F0IjoiMjAyMi0xMi0wNCAxOTozNjo1NSIsImlhdCI6MTY2NzU5MDYxNX0.QvyQyTXoQCzXlGGfBs2brK15_9AvoveFWTAgprHvRDc")
-    }
+     }
 
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "biometrics_flutter_sdk", binaryMessenger: registrar.messenger())
@@ -23,8 +21,10 @@ public class BiometricsFlutterSdkPlugin: UIViewController, FlutterPlugin, Verifi
         switch call.method {
             case "init":
                 if !initVerifik{
-                    // verifik = Verifik(vc: self, token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJZCI6IjYxNTc3MTU2OTBmMDEwOGNmMmRjNjI4MSIsImRvY3VtZW50VHlwZSI6IkNDIiwiZG9jdW1lbnROdW1iZXIiOiIxNjM1MzczMzY3NDY3NDMiLCJ2IjoxLCJyb2xlIjoiY2xpZW50IiwiZXhwaXJlc0F0IjoiMjAyMi0xMi0wNCAxOTozNjo1NSIsImlhdCI6MTY2NzU5MDYxNX0.QvyQyTXoQCzXlGGfBs2brK15_9AvoveFWTAgprHvRDc")
-                    result("Init")
+                    let vc = UIApplication.shared.windows.first?.rootViewController
+                           
+                    verifik = Verifik(vc: vc!, token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJZCI6IjYxNTc3MTU2OTBmMDEwOGNmMmRjNjI4MSIsImRvY3VtZW50VHlwZSI6IkNDIiwiZG9jdW1lbnROdW1iZXIiOiIxNjM1MzczMzY3NDY3NDMiLCJ2IjoxLCJyb2xlIjoiY2xpZW50IiwiZXhwaXJlc0F0IjoiMjAyMi0xMi0wNCAxOTozNjo1NSIsImlhdCI6MTY2NzU5MDYxNX0.QvyQyTXoQCzXlGGfBs2brK15_9AvoveFWTAgprHvRDc",vp: self)
+                    result("Init") 
                 }
             case "enroll":
                 if initVerifik{
@@ -39,7 +39,7 @@ public class BiometricsFlutterSdkPlugin: UIViewController, FlutterPlugin, Verifi
                 }
             case "matchIDScan":
                 if initVerifik{
-                    verifik?.matchIDScan()
+                    verifik?.matchIDScan(externalDataBaseRefID: "refId")
                     result("xxx")
                 }
             case "photoIDScan":
@@ -57,65 +57,89 @@ public class BiometricsFlutterSdkPlugin: UIViewController, FlutterPlugin, Verifi
         }
     }
 
-    public func initializationSuccesful() {
+    @objc public func initVerifikSuccess() {
         initVerifik = true
         print("Se inició correctamente el sdk de Verifik")
     }
 
-    public func configError(error: String) {
+    @objc public func configError(error: String) {
         print("Hay un error con el sdk de Verifik: \(error)")
     }
 
-    public func sessionError(error: String) {
+    @objc public func sessionError(error: String) {
         print("Hay un error con la sesión de Verifik: \(error)")
     }
 
-    public func onVerifikComplete() {}
+    @objc public func onVerifikComplete() {}
 
-    public func onEnrollmentDone(done: Bool) {
+    @objc public func onEnrollmentDone(done: Bool) {
         if done{
             print("Se registro el rostro correctamente")
         }
     }
 
-    public func enrollmentError(error: String) {
+    @objc public func enrollmentError(error: String) {
         print("Hubo un error al registrar el rostro: \(error)")
     }
 
-    public func onAuthDone(done: Bool) {
+    @objc public func onAuthDone(done: Bool) {
         if done{
             print("Se autenticó el rostro correctamente")
         }
     }
 
-    public func authError(error: String) {
+    @objc public func authError(error: String) {
         print("Hubo un error al autenticar el rostro: \(error)")
     }
 
-    public func onPhotoIDMatchDone(done: Bool) {
+    @objc public func onPhotoIDMatchDone(done: Bool) {
         if done{
             print("Se registro correctamente el rostro con la identificación")
         }
     }
 
-    public func photoIDMatchError(error: String) {
+    @objc public func photoIDMatchError(error: String) {
         print("Hubo un error al registrar el rostro con la identificación: \(error)")
     }
 
-    public func onPhotoIDScan(done: Bool) {
+    @objc public func onPhotoIDScan(done: Bool) {
         if done{
             print("Se escaneo correctamente la identificación")
         }
     }
 
-    public func photoIDScanError(error: String) {
+    @objc public func photoIDScanError(error: String) {
         print("Hubo un error al escanear la identificación")
     }
 
-    public func onAppRegisterDone(done: Bool, resultToken: String?) {
+    @objc public func onAppRegisterDone(done: Bool, resultToken: String?) {
     }
 
-    public func appRegisterError(error: String) {
+    @objc public func appRegisterError(error: String) {
         print("Hubo un error al intentar hacer el registro en la app: \(error)")
+    }
+
+    @objc public func onLivenessDone(done: Bool) {
+        print("Hubo un error al intentar hacer onLivenessDone en la app")
+    }
+
+    @objc public func livenessError(error: String) {
+        print("Hubo un error al intentar hacer livenessError en la app: \(error)")
+    }
+
+    @objc public func onAppLoginDone(done: Bool, resultToken: String?) {
+        print("Hubo un error al intentar hacer onAppLoginDone en la app")
+    }
+
+    @objc public func appLoginError(error: String) {
+        print("Hubo un error al intentar hacer appLoginError en la app: \(error)")
+    }
+
+    @objc public func onAppPhotoIDScanDone(done: Bool, resultID: String?) {
+        print("Hubo un error al intentar hacer onAppPhotoIDScanDone en la app")
+    }
+
+    @objc public func appPhotoIDScanError(error: String) {
+        print("Hubo un error al intentar hacer appPhotoIDScanError en la app: \(error)")
     }
 }
