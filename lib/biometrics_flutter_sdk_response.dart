@@ -42,6 +42,10 @@ class BiometricsResponse {
           message: response!,
         );
       case 'User not found on Database':
+        return BiometricsResponse(
+          type: BiometricsResponseType.cancelled,
+          message: response!,
+        );
       case 'There was an error parsing app register resulting data, please contact Verifik Support Team':
       case 'There was an error parsing enrollment resulting data, please contact Verifik Support Team':
         return BiometricsResponse(

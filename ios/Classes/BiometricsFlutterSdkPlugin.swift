@@ -44,7 +44,7 @@ import VerifikKit
                 }
             case "photoIDScan":
                 if initVerifik{
-                    verifik?.photoIDScan()
+                    verifik?.photoIDScan(externalDataBaseRefID: "refId")
                     result("xxx")
                 }
             case "appLoginKYC":

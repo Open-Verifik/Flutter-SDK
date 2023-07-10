@@ -66,8 +66,9 @@ public class BiometricsFlutterSdkPlugin implements FlutterPlugin, MethodCallHand
       }
     } else if (call.method.equals("photoIDScan")) {
       if (initVerifik) {
-        globalResult = result;
-        verifik.photoIDScan();
+        globalResult = result; 
+        String refId = call.argument("refId");
+        verifik.photoIDScan(refId);
       }
     } else if (call.method.equals("appRegistrationKYC")) {
       if (initVerifik) {
