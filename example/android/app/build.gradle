@@ -60,6 +60,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    // DEPRECATED: legacy FaceTec AAR for example app only — see DEPRECATION.md
     implementation files(project(':').file('libs/facetec-sdk-9.6.24.aar'))
 
 }

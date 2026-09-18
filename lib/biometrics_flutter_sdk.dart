@@ -1,10 +1,15 @@
+import 'biometrics_flutter_sdk_deprecation.dart';
 import 'biometrics_flutter_sdk_platform_interface.dart';
 import 'biometrics_flutter_sdk_response.dart';
 
+/// @deprecated Use Verifik REST liveness APIs or [web-sdk SmartEnroll](https://github.com/Open-Verifik/web-sdk).
+/// This plugin bundles legacy FaceTec binaries via VerifikKit. See DEPRECATION.md.
+@Deprecated(kBiometricsFlutterSdkDeprecationMessage)
 class BiometricsFlutterSdk {
   Future<BiometricsResponse> init({
     required String token,
   }) async {
+    logBiometricsFlutterSdkDeprecation();
     return BiometricsResponse.fromSDK(
       await BiometricsFlutterSdkPlatform.instance.init(
         token: token,
