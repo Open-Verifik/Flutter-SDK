@@ -22,6 +22,8 @@ A new Flutter plugin project.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
   s.swift_version = '5.0'
 
+  # DEPRECATED: FaceTecSDK is a legacy vendor binary. Verifik no longer uses FaceTec.
+  # Binaries are retained for existing consumers — see DEPRECATION.md. Do not remove without a major bump.
   s.preserve_paths = 'VerifikKit.xcframework/**/*', 'FaceTecSDK.framework',
   s.xcconfig = { 'OTHER_LDFLAGS' => '-framework VerifikKit -framework FaceTecSDK' }
   s.vendored_frameworks = 'VerifikKit.xcframework', 'FaceTecSDK.framework'
